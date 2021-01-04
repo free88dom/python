@@ -36,7 +36,7 @@ garpike and stingray are also present.'''
 
 credentials = {"bob": "123", "ann": "pass123", "mike": "password123", "liz": "pass123"}
 
-delimiter = 50 * '#'
+delimiter = 100 * '#'
 
 words_total = 0
 capital_words = 0
@@ -48,35 +48,44 @@ counts_set = set()
 counts_list = []
 counts_length = []
 
-print(f"{delimiter}",
-      f"\nWelcome to the app.",
-      end=f"\n{delimiter}")
+print(delimiter,
+      "Welcome to the app.".center(100, " "),
+      delimiter,
+      sep=f"\n")
 
 user_password_input = input(f"\nPlease enter the name and password delimited with space....[username password]: ")
+
 username, password = user_password_input.split(" ")  # here splitting the user input string
 
- # to avoid pick the wrong credentials, i introduced the try except block
-while username in credentials and password == credentials[username]:  # here testing, if the entered username/password matches
-    print(f"{delimiter}",
-          f"\nWe have 3 texts to be analyzed.")
+while username in credentials and password == credentials[username]:  # here testing, if the entered
+    # username/password matches
+    print(delimiter,
+          "\nWe have 3 texts to be analyzed.")
     selection = int(input(f"\nEnter a number btw. 1 and 3 to select: "))
-    print(f"\n{delimiter}")
+
     for word in texts[selection - 1].split():  # iteration over the text with splitting
         word_stripped = word.strip("./-?")
         words_total += 1  # counting the total_words
+
         if word_stripped[0].isupper():
             capital_words += 1  # counting the title cased words
+
         elif word_stripped.isupper():
             uppercase_words += 1  # counting the upper cased words
+
         elif word_stripped.islower():
             lowercase_words += 1  # counting the lower cased words
+
         elif word_stripped.isnumeric():
-            numeric += 1  # counting the numeric
+            numeric += 1  # counting the numeric words
             numeric_list.append(float(word_stripped))  # creating the list with numbers to count them later on
-        counts_set.add(len(word_stripped))  # with the set, i only get a unique length
+
+        counts_set.add(len(word_stripped))  # with the set, i only get a unique set of different lengths
         counts_list.append(len(word_stripped))  # with the list, i can count the occurrences of the same length
-    for i in counts_set:  # with help of this iteration, i can count the occurrences of each count
+
+    for i in counts_set:  # with help of this iteration, i can count the occurrences of each length
         counts_length.append(counts_list.count(i))
+
     print(f"\n{delimiter}",
           f"\nTotal number of words are: {words_total}",
           f"\nTitle cased word is {capital_words}" if capital_words <= 1 else f"\nTitle cased words are {capital_words}",
@@ -84,6 +93,7 @@ while username in credentials and password == credentials[username]:  # here tes
           f"\nLowercase word is {lowercase_words}" if lowercase_words <= 1 else f"\nLowercase words are {lowercase_words}",
           f"\nNumeric is {numeric}" if numeric <= 1 else f"\nNumerics are {numeric}",
           end=f"\n{delimiter}\n")
+
     for num in counts_set:  # with this cycle i print the occurrences of each lengths with visualisation
         count_of_letters = counts_length.pop(0)
         print(f"{num} {'*' * count_of_letters} {count_of_letters}")
@@ -91,5 +101,6 @@ while username in credentials and password == credentials[username]:  # here tes
           f"\nIf we summed all the numbers in this text we would get: {str(sum(numeric_list))}",
           end=f"\n{delimiter}")
     break
+
 else:
     sys.exit(f"Wrong credentials")
