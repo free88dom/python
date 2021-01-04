@@ -46,14 +46,13 @@ numeric = 0
 numeric_list = []
 counts_set = set()
 counts_list = []
-counts_length = []
 
 print(delimiter,
-      "Welcome to the app.".center(100, " "),
+      "Welcome to the application".center(100, " "),
       delimiter,
       sep=f"\n")
 
-user_password_input = input(f"\nPlease enter the name and password delimited with space....[username password]: ")
+user_password_input = input(f"Please enter the name and password delimited with space....[username password]: ")
 
 username, password = user_password_input.split(" ")  # here splitting the user input string
 
@@ -83,8 +82,8 @@ while username in credentials and password == credentials[username]:  # here tes
         counts_set.add(len(word_stripped))  # with the set, i only get a unique set of different lengths
         counts_list.append(len(word_stripped))  # with the list, i can count the occurrences of the same length
 
-    for i in counts_set:  # with help of this iteration, i can count the occurrences of each length
-        counts_length.append(counts_list.count(i))
+    counts_length = [counts_list.count(i) for i in counts_set]  # with help of this iteration,
+    # i can count the occurrences of each length
 
     print(f"\n{delimiter}",
           f"\nTotal number of words are: {words_total}",
@@ -97,6 +96,7 @@ while username in credentials and password == credentials[username]:  # here tes
     for num in counts_set:  # with this cycle i print the occurrences of each lengths with visualisation
         count_of_letters = counts_length.pop(0)
         print(f"{num} {'*' * count_of_letters} {count_of_letters}")
+
     print(f"{delimiter}",
           f"\nIf we summed all the numbers in this text we would get: {str(sum(numeric_list))}",
           end=f"\n{delimiter}")
