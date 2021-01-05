@@ -52,9 +52,14 @@ print(delimiter,
       delimiter,
       sep=f"\n")
 
-user_password_input = input(f"Please enter the name and password delimited with space....[username password]: ")
-
-username, password = user_password_input.split(" ")  # here splitting the user input string
+while user_password_input := input(f"Enter the name and pass delimited with space[username password]:"):
+    try:
+        username, password = user_password_input.split(" ")  # here splitting the user input string
+        break
+    except:
+        sys.exit(f"Username, password in wrong format, exiting")
+else:
+    sys.exit(f"Nothing inserted, exiting")
 
 while username in credentials and password == credentials[username]:  # here testing, if the entered
     # username/password matches
