@@ -58,62 +58,62 @@ while True:
     try:
         username, password = user_password_input.split(" ")
         if username in credentials and password == credentials[username]:
-            print(delimiter,
-                  "\nWe have 3 texts to be analyzed.")
-            while True:
-                selection = input(f"\nEnter a number btw. 1 and 3 to select: ")
-                if selection.isnumeric() and 0 < int(selection) <= 3:
-                    for word in texts[int(selection) - 1].split():  # iteration over the text with splitting
-                        word_stripped = word.strip("./-?,")
-                        words_total += 1
-                        if word_stripped[0].isupper():
-                            capital_words += 1
-                        elif word_stripped.isupper():
-                            uppercase_words += 1
-                        elif word_stripped.islower():
-                            lowercase_words += 1
-                        elif word_stripped.isnumeric():
-                            numeric += 1
-                            numeric_list.append(
-                                float(word_stripped))  # creating the list with numbers to count them later on
-
-                        counts_set.add(len(word_stripped))  # with the set, i only get a unique set of different lengths
-                        counts_list.append(
-                            len(word_stripped))  # with the list, i can count the occurrences of the same length
-
-                    counts_length = [counts_list.count(i) for i in counts_set]  # with help of this iteration,
-                    # i can count the occurrences of each length
-
-                    print(f"\n{delimiter}",
-                          f"\nTotal number of words are: {words_total}",
-                          f"\nTitle cased word is {capital_words}"
-                          if capital_words <= 1 else f"\nTitle cased words are {capital_words}",
-                          f"\nUppercase word is {uppercase_words}"
-                          if uppercase_words <= 1 else f"\nUppercase words are {uppercase_words}",
-                          f"\nLowercase word is {lowercase_words}"
-                          if lowercase_words <= 1 else f"\nLowercase words are {lowercase_words}",
-                          f"\nNumeric is {numeric}" if numeric <= 1 else f"\nNumerics are {numeric}",
-                          end=f"\n{delimiter}\n")
-
-                    for num in counts_set:  # with this cycle i print the occurrences of each lengths with visualisation
-                        count_of_letters = counts_length.pop(0)
-                        print(f"{num} {'*' * count_of_letters} {count_of_letters}")
-
-                    print(f"{delimiter}",
-                          f"\nIf we summed all the numbers in this text we would get: {str(sum(numeric_list))}",
-                          end=f"\n{delimiter}")
-                    break
-
-                else:
-                    print(f"Wrong choice, try again: ")
-                    continue
-
+            break
         else:
             print(f"Wrong credentials, try again: ")
             continue
-
-        break
-
     except ValueError:
         print(f"Username, password in wrong format, try it again [username password].")
         continue
+
+print(delimiter,
+      "\nWe have 3 texts to be analyzed.")
+
+while True:
+    selection = input(f"\nEnter a number btw. 1 and 3 to select: ")
+    try:
+        if 0 < int(selection) <= 3:
+            break
+    except ValueError:
+        print(f"Wrong choice, try again: ")
+        continue
+
+for word in texts[int(selection) - 1].split():  # iteration over the text with splitting
+    word_stripped = word.strip("./-?,")
+    words_total += 1
+    if word_stripped[0].isupper():
+        capital_words += 1
+    elif word_stripped.isupper():
+        uppercase_words += 1
+    elif word_stripped.islower():
+        lowercase_words += 1
+    elif word_stripped.isnumeric():
+        numeric += 1
+        numeric_list.append(
+            float(word_stripped))  # creating the list with numbers to count them later on
+
+    counts_set.add(len(word_stripped))  # with the set, i only get a unique set of different lengths
+    counts_list.append(
+        len(word_stripped))  # with the list, i can count the occurrences of the same length
+
+counts_length = [counts_list.count(i) for i in counts_set]  # with help of this iteration,
+# i can count the occurrences of each length
+
+print(f"\n{delimiter}",
+      f"\nTotal number of words are: {words_total}",
+      f"\nTitle cased word is {capital_words}"
+      if capital_words <= 1 else f"\nTitle cased words are {capital_words}",
+      f"\nUppercase word is {uppercase_words}"
+      if uppercase_words <= 1 else f"\nUppercase words are {uppercase_words}",
+      f"\nLowercase word is {lowercase_words}"
+      if lowercase_words <= 1 else f"\nLowercase words are {lowercase_words}",
+      f"\nNumeric is {numeric}" if numeric <= 1 else f"\nNumerics are {numeric}",
+      end=f"\n{delimiter}\n")
+
+for num in counts_set:  # with this cycle i print the occurrences of each lengths with visualisation
+    count_of_letters = counts_length.pop(0)
+    print(f"{num} {'*' * count_of_letters} {count_of_letters}")
+
+print(f"{delimiter}",
+      f"\nIf we summed all the numbers in this text we would get: {str(sum(numeric_list))}",
+      end=f"\n{delimiter}")
