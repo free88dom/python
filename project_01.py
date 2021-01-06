@@ -61,8 +61,9 @@ while True:
             print(delimiter,
                   "\nWe have 3 texts to be analyzed.")
             while True:
-                if 0 < (selection := int(input(f"\nEnter a number btw. 1 and 3 to select: "))) <= 3:
-                    for word in texts[selection - 1].split():  # iteration over the text with splitting
+                selection = input(f"\nEnter a number btw. 1 and 3 to select: ")
+                if selection.isnumeric() and 0 < int(selection) <= 3:
+                    for word in texts[int(selection) - 1].split():  # iteration over the text with splitting
                         word_stripped = word.strip("./-?,")
                         words_total += 1
                         if word_stripped[0].isupper():
