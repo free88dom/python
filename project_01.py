@@ -74,7 +74,9 @@ while True:
     try:
         if 0 < int(selection) <= 3:
             break
-    except ValueError:
+        else:
+            print(f"Wrong choice, try again: ")
+    except ValueError as error:
         print(f"Wrong choice, try again: ")
         continue
 
