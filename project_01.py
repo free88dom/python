@@ -37,15 +37,41 @@ garpike and stingray are also present.'''
 credentials = {"bob": "123", "ann": "pass123", "mike": "password123", "liz": "pass123"}
 
 delimiter = 100 * '#'
-error = " "
-words_total = 0
-capital_words = 0
-uppercase_words = 0
-lowercase_words = 0
-numeric = 0
-numeric_list = []
-counts_set = set()
-counts_list = []
+
+
+def text_analyzer(selection: int):
+
+    words_total = 0
+    capital_words = 0
+    uppercase_words = 0
+    lowercase_words = 0
+    numeric = 0
+    numeric_list = []
+    counts_set = set()
+    counts_list = []
+
+    for word in texts[selection - 1].split():
+        word_stripped = word.strip("./-?,")
+        words_total += 1
+        if word_stripped[0].isupper():
+            capital_words += 1
+        elif word_stripped.isupper():
+            uppercase_words += 1
+        elif word_stripped.islower():
+            lowercase_words += 1
+        elif word_stripped.isnumeric():
+            numeric += 1
+            numeric_list.append(
+                float(word_stripped))  # creating the list with numbers to count them later on
+        counts_set.add(len(word_stripped))  # with the set, i only get a unique set of different lengths
+        counts_list.append(
+            len(word_stripped))  # with the list, i can count the occurrences of the same length
+
+    counts_length = [counts_list.count(i) for i in counts_set]  # with help of this iteration,
+    # i can count the occurrences of each length
+    return (words_total, capital_words, uppercase_words, lowercase_words,
+            numeric, counts_list, counts_set, numeric_list, counts_length)
+
 
 print(delimiter,
       "Welcome to the application".center(100, " "),
@@ -80,26 +106,8 @@ while True:
         print(f"Wrong choice, try again: ")
         continue
 
-for word in texts[int(selection) - 1].split():  # iteration over the text with splitting
-    word_stripped = word.strip("./-?,")
-    words_total += 1
-    if word_stripped[0].isupper():
-        capital_words += 1
-    elif word_stripped.isupper():
-        uppercase_words += 1
-    elif word_stripped.islower():
-        lowercase_words += 1
-    elif word_stripped.isnumeric():
-        numeric += 1
-        numeric_list.append(
-            float(word_stripped))  # creating the list with numbers to count them later on
-
-    counts_set.add(len(word_stripped))  # with the set, i only get a unique set of different lengths
-    counts_list.append(
-        len(word_stripped))  # with the list, i can count the occurrences of the same length
-
-counts_length = [counts_list.count(i) for i in counts_set]  # with help of this iteration,
-# i can count the occurrences of each length
+words_total, capital_words, uppercase_words, lowercase_words, \
+ numeric, counts_list, counts_set, numeric_list, counts_length = text_analyzer(int(selection))
 
 print(f"\n{delimiter}",
       f"\nTotal number of words are: {words_total}",
