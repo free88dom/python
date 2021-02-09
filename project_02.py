@@ -34,12 +34,14 @@ def open_results(filename, args, encoding):
 if __name__ == "__main__":
     print(f"**** Welcome to Bulls and Cows game ****",
           sep=f"{'*'*20}", end="\n")
+
     while not (player := input(f"Enter your name(nickname): ")):
         print(f"At least a nickname give us, don't worry, it's just for table score... :-) ")
     number_to_guess = number_generator()
     print(number_to_guess)
     perf_counter()
     count_of_tries = 0
+
     while True:
         while not (number_list := input(f"Guess the number: ")).isdigit() or len(number_list) != len(set(number_list)) \
                 or len(list(number_list)) != 4 or list(number_list)[0] == 0:
