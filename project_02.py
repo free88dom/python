@@ -22,7 +22,7 @@ def main_game(gen_num_list: list, number_to_guess: list) -> list:
     return output_list
 
 
-def open_results(filename, args, encoding):
+def open_results(filename: str, args: str, encoding: str):
     try:
         filename = open(filename, mode=args, encoding=encoding)
     except FileNotFoundError:
@@ -33,10 +33,10 @@ def open_results(filename, args, encoding):
 
 if __name__ == "__main__":
     print(f"**** Welcome to Bulls and Cows game ****",
-          sep=f"{'*'*20}", end="\n")
+          end="\n")
 
     while not (player := input(f"Enter your name(nickname): ")):
-        print(f"At least a nickname give us, don't worry, it's just for table score... :-) ")
+        print(f"At least give us a nickname, don't worry, it's just for table score... :-) ")
     number_to_guess = number_generator()
     perf_counter()
     count_of_tries = 0
