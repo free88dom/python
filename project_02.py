@@ -4,7 +4,7 @@ from datetime import date
 
 
 def number_generator() -> list:
-    while gen_num := [i for i in str(random.randint(0000, 9999))]:
+    while gen_num := [i for i in str(random.randint(1000, 9999))]:
         if len(gen_num) == len(set(gen_num)):
             gen_num_li = [i for i in gen_num]
             break
