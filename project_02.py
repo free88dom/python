@@ -38,7 +38,6 @@ if __name__ == "__main__":
     while not (player := input(f"Enter your name(nickname): ")):
         print(f"At least a nickname give us, don't worry, it's just for table score... :-) ")
     number_to_guess = number_generator()
-    print(number_to_guess)
     perf_counter()
     count_of_tries = 0
 
@@ -60,7 +59,7 @@ if __name__ == "__main__":
             open_results("user_score.txt", "a", "utf-8").writelines(record_to_insert)
 
             show_results = (open_results("user_score.txt", "r", "utf-8").readlines())
-            print(f"Summary of results", " ".join([str(i) for i in show_results]), sep="\n")
+            print(f"Summary of results", "".join([str(i) for i in show_results]), sep="\n")
 
             open_results("user_score.txt", "a", "utf-8").close()
             break
